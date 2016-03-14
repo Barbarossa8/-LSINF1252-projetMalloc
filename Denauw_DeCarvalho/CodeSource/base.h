@@ -1,0 +1,11 @@
+
+struct block_header;
+
+void *mymalloc(size_t size);
+
+void myfree(void *ptr);
+
+void *calloc(size_t size);
+
+
+int main(int argc, char const *argv[]);
