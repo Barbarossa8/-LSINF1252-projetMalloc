@@ -1,16 +1,30 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h> //Pour sbrk
+#include <unistd.h>
 #include "code.h"
+#include <string.h>
 
 
+/*METHODE ALIGN
+    @pre: prend un int (size_to_align)
+    @post: retourne un int aligné en multiple de 4
+*/
+int align(int size_to_align)
+{
+    if (size_to_align % 4 !=0)
+	{
+		return size_to_align+(4-(size_to_align%4));
+	}
+    else return size_to_align;
+}
+
+/*METHODE MY_MALLOC
+    @pre size est la taille dont on veut disposer dans le heap créé
+    @post retourne un pointeur vers une zone memoire de taille size alligné
+*/
 void* my_malloc(int size)
 {
-	if (size % 4 !=0)
-	{
-		size=size+(4-(size%4));
-	}	
-
+	size=align(size);
 	int notFound=0;
 	void *position=debut_workspace_m;
 	while(notFound==0)
@@ -31,7 +45,7 @@ void* my_malloc(int size)
 			struct block_header* new_header=(struct block_header*)position;
 			new_header->size=block_size;
 			new_header->zero=0;
-			new_header->alloc=0;	
+			new_header->alloc=0;
 //on met le block header contenant les info sur ce qu'il reste du block initial
 
 			notFound=1;	//inutile mais pour faire propre
@@ -40,12 +54,23 @@ void* my_malloc(int size)
 		else
 		{
 			struct block_header* header= (struct block_header*) position;
-			position+=header->size;		
+			position+=header->size;
 		}
 	}
 
 }
 
+
+/*METHODE MY_CALLOC
+    @pre size est la taille dont on veut disposer dans le heap créé
+    @post retourne un pointeur vers une zone memoire initialisée à zéro de taille size alligné
+*/
+void* my_calloc(int size)
+{
+    void* block=my_malloc(size);
+    return memset(block,0,align(size));
+
+}
 
 void myfree(void *ptr)
 {

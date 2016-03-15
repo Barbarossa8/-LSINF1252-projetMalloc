@@ -18,14 +18,15 @@ int main(int argc, char *argv[])
 	header->size=capacity;
 	header->zero=0;
 	header->alloc=0;
+	//mini tests
 	void* a=my_malloc(8);
-	//void* b=my_malloc(160);
-	//void* c=my_malloc(10);
-	//void* d=my_malloc(100000);
-	printf("a: %p \n",a);
-	//printf("16+4: %d \n",&b[0]- &a[0]);
-	//printf("160+4: %d \n",&c[0]-&b[0]);
-	//printf("null: %d",d!=NULL);
+	void* b=my_calloc(16);
+	void* c=my_calloc(10);
+	void* d=my_calloc(14);
+	printf("prend 4: %d \n",&a[0]-&debut_workspace_m[0]);
+	printf("prend 12: %d \n",&b[0]-&a[0]);
+	printf("prend 20: %d \n",&c[0]-&b[0]);
+	printf("prend 16: %d \n",&d[0]-&c[0]);
 	return 0;
 }
 
