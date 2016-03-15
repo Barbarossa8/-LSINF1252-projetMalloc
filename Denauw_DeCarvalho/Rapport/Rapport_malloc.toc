@@ -1,5 +1,14 @@
 \select@language {french}
 \contentsline {section}{\numberline {1}Explications de l'implémentation}{2}
+\contentsline {paragraph}{Aide de Tonio}{2}
 \contentsline {section}{\numberline {2}Difficultés rencontrées}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {paragraph}{}{2}
+\contentsline {paragraph}{FREE}{2}
+\contentsline {paragraph}{CALLOC}{2}
+\contentsline {paragraph}{RAPPORT}{2}
 \contentsline {section}{\numberline {3}Cas couverts par nos tests unitaires}{2}
+\contentsline {paragraph}{SOON}{2}
 \contentsline {section}{\numberline {4}Performance de notre implémentation}{2}
+\contentsline {paragraph}{FIN d'implémentation}{2}
