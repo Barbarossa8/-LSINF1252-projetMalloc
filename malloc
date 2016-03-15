@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct metadata
+{
+	
+
+};
+void *mymalloc(size_t size)
+{
+	
+}
+
+void *myfree(void *ptr)
+{
+
+}
+
