@@ -1,17 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h> //Pour sbrk
-
-struct block_header
-{
-	unsigned int size : 29,
-		     zero : 2,
-		     alloc : 1;
-}
-
-
-void *fin_workspace_m=sbrk(0);		//variable globale de fin du workspace
-extern void *debut_workspace;
+#include "code.h"
 
 
 void* my_malloc(int size)
@@ -20,27 +10,32 @@ void* my_malloc(int size)
 	{
 		size=size+(4-(size%4));
 	}	
-	bool notFound=true;
+
+	int notFound=0;
 	void *position=debut_workspace_m;
-	while(notFound)
-	{	if(position==fin_workspace)
+	while(notFound==0)
+	{	if(position==fin_workspace_m)
 		{
-			notFound=false;
+			notFound=1;
 			return NULL;
 		}
-		if(position->alloc==0 && (position->size) >= (size+4)) //si on peut allouer et assez grand
+		struct block_header* block_position=(struct block_header*)position;
+		if(block_position->alloc==0 && (block_position->size) >= (size+4)) //si on peut allouer et assez grand
 		{
-			block_header new_header={(position->size)-size-4,0,0}; //on cree le block header contenant le restant
-			
-			position->size=size+4;	//on donne la taille au block
-			position->alloc=1;	//on dit que le block est alloue
+			unsigned int block_size=(block_position->size)-size-4;
+			block_position->size=size+4;	//on donne la taille au block
+			block_position->alloc=1;	//on dit que le block est alloue
 			void* final_position=position;	//on stocke la position du bloc libéré voulu
 			struct block_header* header= (struct block_header*) position;
 			position+=header->size;		//on va a la fin du block que l'on vient d'allouer
-			position=new_header;	//on met le block header contenant les info sur ce qu'il reste du block initial
+			struct block_header* new_header=(struct block_header*)position;
+			new_header->size=block_size;
+			new_header->zero=0;
+			new_header->alloc=0;	
+//on met le block header contenant les info sur ce qu'il reste du block initial
 
-			notFound=false;	//inutile mais pour faire propre
-			return final_position; //retourne la position du block voulu
+			notFound=1;	//inutile mais pour faire propre
+			return final_position+4; //retourne la position du block voulu
 		}
 		else
 		{
