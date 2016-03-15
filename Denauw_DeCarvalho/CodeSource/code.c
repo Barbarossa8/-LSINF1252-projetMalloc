@@ -45,11 +45,10 @@ void* my_malloc(int size)
 			struct block_header* new_header=(struct block_header*)position;
 			new_header->size=block_size;
 			new_header->zero=0;
-			new_header->alloc=0;
-//on met le block header contenant les info sur ce qu'il reste du block initial
+			new_header->alloc=0;	//on met le block header contenant les info sur ce qu'il reste du block initial
 
 			notFound=1;	//inutile mais pour faire propre
-			return final_position+4; //retourne la position du block voulu
+			return final_position+4;	//retourne la position du block voulu
 		}
 		else
 		{
@@ -72,7 +71,12 @@ void* my_calloc(int size)
 
 }
 
-void myfree(void *ptr)
+
+/*METHODE MY_FREE
+    @pre Prend un pointeur à partir duquel nous voulons libérer de la mémoire
+    @post Ne retourne rien permet juste de libérer la mémoire associée au pointeur ptr
+*/
+void my_free(void *ptr)
 {
 
 }
