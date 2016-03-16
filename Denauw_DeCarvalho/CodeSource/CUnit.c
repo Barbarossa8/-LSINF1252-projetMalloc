@@ -1,4 +1,4 @@
-#include <CUnit.h>
+#include <CUnit/CUnit.h> 
 #include "code.h"
 #include <stdio.h>
 #include <unistd.h>

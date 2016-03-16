@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "code.h"
 #include <string.h>
+#include <CUnit/CUnit.h>
 
 void* fin_workspace_m=NULL;
 void* debut_workspace_m=NULL;
@@ -65,7 +66,7 @@ void* my_malloc(int size)
 		debut_workspace_m = sbrk(SIZE);
 		fin_workspace_m = sbrk(0);
 		struct block_header *header=(struct block_header*)debut_workspace_m;
-		header->size=capacity;
+		header->size=SIZE;
 		header->zero=0;
 		header->alloc=0;		
 	}
