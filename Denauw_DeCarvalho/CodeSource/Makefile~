@@ -2,7 +2,7 @@ CHEM1 = HOME/local/include
 CHEM2 = HOME/local/lib
 
 code: code.o CUnit.o
-	gcc -Werror -L$(CHEM2) -o code code.o CUnit.o -lcunit
+	gcc -Werror -L$(CHEM2) code.o CUnit.o -o code -lcunit
 	./code 2048
 code.o: code.c code.h
 	gcc -Werror -c code.c

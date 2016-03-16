@@ -5,7 +5,7 @@ struct block_header
 		     alloc : 1;
 };
 
-int SIZE;
+unsigned int SIZE;
 
 
 void* my_malloc(int size);

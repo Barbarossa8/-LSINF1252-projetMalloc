@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "code.h"
 #include <string.h>
+#include <CUnit/CUnit.h>
 
 void* fin_workspace_m=NULL;
 void* debut_workspace_m=NULL;
