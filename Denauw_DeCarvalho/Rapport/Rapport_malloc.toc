@@ -7,10 +7,11 @@
 \contentsline {subsection}{\numberline {2.1}Globales}{2}
 \contentsline {paragraph}{}{2}
 \contentsline {paragraph}{}{2}
+\contentsline {paragraph}{}{2}
 \contentsline {subsection}{\numberline {2.2}malloc}{2}
 \contentsline {paragraph}{}{2}
-\contentsline {subsection}{\numberline {2.3}free}{2}
-\contentsline {paragraph}{}{2}
+\contentsline {subsection}{\numberline {2.3}free}{3}
+\contentsline {paragraph}{}{3}
 \contentsline {subsection}{\numberline {2.4}calloc}{3}
 \contentsline {paragraph}{}{3}
 \contentsline {section}{\numberline {3}Cas couverts par nos tests unitaires}{3}
