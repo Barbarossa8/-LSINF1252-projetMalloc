@@ -5,9 +5,9 @@ struct block_header
 		     alloc : 1;
 };
 
-void* fin_workspace_m;
-void* debut_workspace_m;
+int SIZE;
+
 
 void* my_malloc(int size);
 void* my_calloc(int size);
-void my_free(void *ptr)
+void my_free(void *ptr);
