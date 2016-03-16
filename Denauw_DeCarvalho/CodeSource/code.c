@@ -67,7 +67,7 @@ void* my_malloc(int size)
 void* my_calloc(int size)
 {
     void* block=my_malloc(size);
-    return memset(block,0,align(size));
+    return memset(block,0,align(size)); //Rempli la mémoire de constantes 0 à partir du pointeur block
 
 }
 

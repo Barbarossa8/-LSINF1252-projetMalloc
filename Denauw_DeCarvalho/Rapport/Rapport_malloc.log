@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2015.11.26)  15 MAR 2016 22:40
+This is XeTeX, Version 3.14159265-2.6-0.99992 (TeX Live 2015/Debian) (preloaded format=xelatex 2015.11.26)  16 MAR 2016 01:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -490,7 +490,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 13.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 13.
-(./Rapport_malloc.toc)
+(./Rapport_malloc.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 5.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 5.
+)
 \tf@toc=\write3
 \openout3 = `Rapport_malloc.toc'.
 
@@ -498,11 +503,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 ] [2] (./Rapport_malloc.aux) ) 
 Here is how much of TeX's memory you used:
- 14168 strings out of 493706
- 293360 string characters out of 6147747
+ 14178 strings out of 493706
+ 293602 string characters out of 6147747
  324106 words of memory out of 5000000
- 17464 multiletter control sequences out of 15000+600000
- 7227 words of font info for 35 fonts, out of 8000000 for 9000
+ 17469 multiletter control sequences out of 15000+600000
+ 7251 words of font info for 38 fonts, out of 8000000 for 9000
  1328 hyphenation exceptions out of 8191
  46i,6n,39p,10386b,282s stack positions out of 5000i,500n,10000p,200000b,80000s
 
