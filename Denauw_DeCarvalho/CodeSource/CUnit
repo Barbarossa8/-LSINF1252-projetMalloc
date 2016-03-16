@@ -46,45 +46,41 @@ void test_my_free(void)
 /* TESTS DE PERFORMANCES */
 
 //my_malloc face au true_malloc
-int temps_my_malloc()
+void temps_my_malloc()
 {
 	int a = gettimeofday();
 	my_malloc(100);
 	int b = gettimeofday();
-	printf("Temps pour my_malloc:\n");
-	return (b - a);
+	printf("Temps pour my_malloc: %d\n", b-a);
 }
 
-int temps_true_malloc()
+void temps_true_malloc()
 {
 	int a = gettimeofday();
 	malloc(100);
 	int b = gettimeofday();
-	printf("Temps pour true_malloc:\n");
-	return (b - a);
+	printf("Temps pour true_malloc: %d\n", b-a);
 }
 
 //my_calloc face au true_calloc
-int temps_my_calloc()
+void temps_my_calloc()
 {
 	int a = gettimeofday();
 	my_calloc(100);
 	int b = gettimeofday();
-	printf("Temps pour my_calloc:\n");
-	return (b - a);
+	printf("Temps pour my_calloc: %d\n", b-a);
 }
 
-int temps_true_calloc()
+void temps_true_calloc()
 {
 	int a = gettimeofday();
 	calloc(100);
 	int b = gettimeofday();
-	printf("Temps pour true_calloc:\n");
-	return (b - a);
+	printf("Temps pour true_calloc: %d\n", b-a);
 }
 
 //my_free face au true_free
-int temps_my_free()
+void temps_my_free()
 {
 	int *i
 	i=(int*)malloc(sizeof(int));
@@ -92,11 +88,10 @@ int temps_my_free()
 	int a = gettimeofday();
 	my_free(i);
 	int b = gettimeofday();
-	printf("Temps pour my_free:\n");
-	return (b - a);
+	printf("Temps pour my_free: %d\n", b-a);
 }
 
-int temps_true_free()
+void temps_true_free()
 {
 	int *i
 	i=(int*)malloc(sizeof(int));
@@ -104,8 +99,7 @@ int temps_true_free()
 	int a = gettimeofday();
 	free(i);
 	int b = gettimeofday();
-	printf("Temps pour true_free:\n");
-	return (b - a);
+	printf("Temps pour true_free: %d\n", b-a);
 }
 
 
