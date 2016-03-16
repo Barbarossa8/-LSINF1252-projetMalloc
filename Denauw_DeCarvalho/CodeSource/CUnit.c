@@ -1,6 +1,7 @@
 #include <CUnit.h>
-#include <code.c>
+#include "code.h"
 #include <stdio.h>
+#include <unistd.h>
 
 /* TEST ALIGN */
 void test_align(void)
@@ -20,15 +21,23 @@ void test_my_malloc(void)
 
 }
 
-
 /* TEST MY_CALLOC */
 void test_my_calloc(void)
 {
-	void* allouer=my_calloc(8);
-    CU_ASSERT_EQUAL(allouer+20,0);	//Verif si les autres valeurs non-allouées sont mises à zero
-    CU_ASSERT_EQUAL(allouer+100,0);
-    CU_ASSERT_EQUAL(allouer+10,0);
-    CU_ASSERT_NOT_EQUAL(allouer,0);	//Verif si la valeur allouée est != 0
+	void* allouer=my_calloc(16);
+	int *i;
+	int v;
+	for (v = 0; v < 16; i++)
+	{
+		i=(int *) (allouer+v);	//Verif si les autres valeurs non-allouées sont mises à zero
+		if (*i!=0)
+		{
+			CU_FAIL("Différent de zéro");	//Une des valeur n'a pas été mise à zéro
+			break;
+		}
+	}
+
+    CU_PASS("Les tests passent");	//Les valeurs sont bonnes
 }
 
 
@@ -102,8 +111,50 @@ void temps_true_free()
 	printf("Temps pour true_free: %d\n", b-a);
 }
 
-
-if (CUE_SUCCESS != CU_initialize_registry())
+int main(int argc, char const *argv[])
 {
-	return CU_get_error();
+	size=atoi(argv[1]); //La taille 
+
+	if (CUE_SUCCESS != CU_initialize_registry())
+	{
+		return CU_get_error();
+	}
+	CU_pSuite pSuiteProjet = NULL;
+	pSuiteProjet = CU_add_suite("Test des fonctions du projet",NULL,NULL);
+	if (pSuiteProjet == NULL)
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
+	CU_TestFunc testMyMalloc = &test_my_malloc;
+	CU_add_test(pSuiteProjet,"Test my_malloc()", testMyMalloc);
+	if (testMyMalloc == NULL)
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
+	CU_TestFunc testMyCalloc = &test_my_calloc;
+	CU_add_test(pSuiteProjet,"Test my_calloc()", testMyCalloc);
+	if (testMyCalloc == NULL)
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
+	CU_TestFunc testAlign = &test_align;
+	CU_add_test(pSuiteProjet,"Test align()", testAlign);
+	if (testAlign == NULL)
+	{
+		CU_cleanup_registry();
+		return CU_get_error();
+	}
+
+	//On lance les tests et on les affiche
+
+	CU_basic_run_tests();
+	CU_basic_show_failures(CU_get_failure_list());
+
+	return EXIT_SUCCESS;
 }
