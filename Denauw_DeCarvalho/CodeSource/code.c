@@ -18,6 +18,36 @@ int align(int size_to_align)
     else return size_to_align;
 }
 
+void my_fragmentation()
+{
+	void* position=debut_workspace_m;
+	void* next=debut_workspace_m;
+    while(position<fin_workspace_m)
+    {
+        struct block_header* block_position=(struct block_header*)position;
+        next+=block_position->size;
+        if(next<fin_workspace_m)
+        {
+        	struct block_header* block_next=(struct block_header*)next;
+        	if(block_position->alloc==0 && block_next->alloc==0)//pas alloué on regarde si le suivant l'est
+        	{
+			printf("ok\n");
+        	    block_position->size+=block_next->size;//On fusionne la taille des deux
+        	    //comment faire disparaitre un header?
+        	}
+        	else
+        	{
+printf("okelse\n");
+        	    position=next;
+        	}
+        }
+        else
+        {
+            position=fin_workspace_m;
+        }
+    }
+}
+
 /*METHODE MY_MALLOC
     @pre size est la taille dont on veut disposer dans le heap créé
     @post retourne un pointeur vers une zone memoire de taille size alligné
@@ -42,11 +72,13 @@ void* my_malloc(int size)
 			void* final_position=position;	//on stocke la position du bloc libéré voulu
 			struct block_header* header= (struct block_header*) position;
 			position+=header->size;		//on va a la fin du block que l'on vient d'allouer
-			struct block_header* new_header=(struct block_header*)position;
-			new_header->size=block_size;
-			new_header->zero=0;
-			new_header->alloc=0;	//on met le block header contenant les info sur ce qu'il reste du block initial
-
+			if(position!=fin_workspace_m)
+			{
+				struct block_header* new_header=(struct block_header*)position;
+				new_header->size=block_size;
+				new_header->zero=0;
+				new_header->alloc=0;	//on met le block header contenant les info sur ce qu'il reste du block initial
+			}
 			notFound=1;	//inutile mais pour faire propre
 			return final_position+4;	//retourne la position du block voulu
 		}
@@ -74,7 +106,7 @@ void* my_calloc(int size)
 
 /*METHODE MY_FREE
     @pre Prend un pointeur à partir duquel nous voulons libérer de la mémoire
-    @post Ne retourne rien permet juste de libérer la mémoire associée au pointeur ptr
+    @post Ne retourne rien permet juste de libérer la mémoire associée au pointeur ptr et appelle fragmentation
 */
 void my_free(void *ptr)
 {
@@ -85,24 +117,4 @@ void my_free(void *ptr)
 }
 
 
-void my_fragmentation()
-{
-	void* position=debut_workspace_m;
-	void* next;
-    while(position!=fin_workspace_m)
-    {
-        struct block_header* block_position=(struct block_header*)position;
-        next+=block_position->size;
-        struct block_header* block_next=(struct block_header*)next;
-        if(block_position->alloc==0 && block_next->alloc==0)//pas alloué on regarde si le suivant l'est
-        {
-            block_position->size+=block_next->size; //On fusionne la taille des deux
-            //comment faire disparaitre un header?
-        }
-        else //si rien  jump=2
-        {
-            position=next;
-        }
-    }
 
-}
