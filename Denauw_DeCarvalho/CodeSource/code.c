@@ -78,6 +78,31 @@ void* my_calloc(int size)
 */
 void my_free(void *ptr)
 {
-
+	ptr-=4;
+	struct block_header *header_to_free=(struct block_header*) ptr;
+	header_to_free->alloc=0;    //on dit que c'est free
+	my_fragmentation();     //on fragmente
 }
 
+
+void my_fragmentation()
+{
+	void* position=debut_workspace_m;
+	void* next;
+    while(position!=fin_workspace_m)
+    {
+        struct block_header* block_position=(struct block_header*)position;
+        next+=block_position->size;
+        struct block_header* block_next=(struct block_header*)next;
+        if(block_position->alloc==0 && block_next->alloc==0)//pas alloué on regarde si le suivant l'est
+        {
+            block_position->size+=block_next->size; //On fusionne la taille des deux
+            //comment faire disparaitre un header?
+        }
+        else //si rien  jump=2
+        {
+            position=next;
+        }
+    }
+
+}

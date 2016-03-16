@@ -1,15 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h> //Pour sbrk
+#include <unistd.h>
 #include "code.h"
+#include <string.h>
 
-void* my_calloc(int size)
-{
-    void* block=my_malloc(size);
-    return memset(block,0,align(size));
 
-}
-
+/*METHODE ALIGN
+    @pre: prend un int (size_to_align)
+    @post: retourne un int aligné en multiple de 4
+*/
 int align(int size_to_align)
 {
     if (size_to_align % 4 !=0)
@@ -19,7 +18,10 @@ int align(int size_to_align)
     else return size_to_align;
 }
 
-
+/*METHODE MY_MALLOC
+    @pre size est la taille dont on veut disposer dans le heap créé
+    @post retourne un pointeur vers une zone memoire de taille size alligné
+*/
 void* my_malloc(int size)
 {
 	size=align(size);
@@ -43,11 +45,10 @@ void* my_malloc(int size)
 			struct block_header* new_header=(struct block_header*)position;
 			new_header->size=block_size;
 			new_header->zero=0;
-			new_header->alloc=0;
-//on met le block header contenant les info sur ce qu'il reste du block initial
+			new_header->alloc=0;	//on met le block header contenant les info sur ce qu'il reste du block initial
 
 			notFound=1;	//inutile mais pour faire propre
-			return final_position+4; //retourne la position du block voulu
+			return final_position+4;	//retourne la position du block voulu
 		}
 		else
 		{
@@ -59,8 +60,26 @@ void* my_malloc(int size)
 }
 
 
-void myfree(void *ptr)
+/*METHODE MY_CALLOC
+    @pre size est la taille dont on veut disposer dans le heap créé
+    @post retourne un pointeur vers une zone memoire initialisée à zéro de taille size alligné
+*/
+void* my_calloc(int size)
 {
+    void* block=my_malloc(size);
+    return memset(block,0,align(size)); //Rempli la mémoire de constantes 0 à partir du pointeur block
 
+}
+
+
+/*METHODE MY_FREE
+    @pre Prend un pointeur à partir duquel nous voulons libérer de la mémoire
+    @post Ne retourne rien permet juste de libérer la mémoire associée au pointeur ptr
+*/
+void my_free(void *ptr)
+{	
+	ptr-=4;
+	struct block_header *header_to_free=(struct block_header*) ptr;
+	header_to_free->alloc=0;	
 }
 

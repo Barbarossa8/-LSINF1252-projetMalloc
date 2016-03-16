@@ -9,3 +9,5 @@ void* fin_workspace_m;
 void* debut_workspace_m;
 
 void* my_malloc(int size);
+void* my_calloc(int size);
+void my_free(void *ptr)
