@@ -17,8 +17,11 @@ void test_align(void)
 /* TEST MY_MALLOC */
 void test_my_malloc(void)
 {
-	void* allouer=my_malloc(10);
+	void* allouer=my_malloc(-10);
+	CU_ASSERT_PTR_NULL(allouer);
 
+	void * allou=mymalloc(0);
+	struct block_header *allou = (struct block_header *)(allou-4);
 }
 
 /* TEST MY_CALLOC */

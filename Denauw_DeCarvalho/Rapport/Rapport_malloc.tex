@@ -20,7 +20,11 @@
 
 \section{Explications de l'implémentation}
 
-\paragraph{Aide de Tonio}
+\paragraph{malloc:} Pour implémenter la fonction my\_malloc(), nous parcourons l'espace mémoire initialisée à la recherche d'un block header non-alloué et pouvant contenir la zone mémoire passée en paramètre de la fonction.
+
+\paragraph{calloc:} Pour implémenter la fonction my\_calloc(), nous faisons appel à la fonction my\_malloc, que l'on a implémenté, puis nous mettons toutes les valeurs de la zone mémoire demandée à zéro conformément à la man page de calloc().
+
+\paragraph{free:} Pour la fonction my\_free(), nous libérons dans un premier temps le bloc que l'ont nous demande de libérer. Dans un second temps, nous parcourons tout l'espace mémoire que l'on nous a donné à l'initialisation. Pendant ce parcours, nous cherchons des blocs non-alloués consécutifs pour les fusionner ensemble.
 
 
 \section{Difficultés rencontrées}
@@ -37,8 +41,12 @@
 
 \subsection{free}
 
+\paragraph{}La partie la plus sensible au niveau de free à été de rechercher les blocs consécutifs pour les fusionner via la fonction my\_fragmentation().
+
 
 \subsection{calloc}
+
+\paragraph{}
 
 
 \section{Cas couverts par nos tests unitaires}
